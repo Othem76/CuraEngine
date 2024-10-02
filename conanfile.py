@@ -223,13 +223,12 @@ class CuraEngineConan(ConanFile):
         copy(self, "CuraEngine*", src=os.path.join(self.package_folder, "bin"), dst=self.install_folder)
 
     def package(self):
-        match self.settings.os:
-            case "Windows":
-                ext = ".exe"
-            case "Emscripten":
-                ext = ".js"
-            case other:
-                ext = ""
+        if self.settings.os == "Windows":
+            ext = ".exe"
+        elif self.settings.os == "Emscripten":
+            ext = ".js"
+        else
+            ext = ""
         copy(self, f"CuraEngine{ext}", src=self.build_folder, dst=path.join(self.package_folder, "bin"))
         copy(self, f"*.d.ts", src=self.build_folder, dst=path.join(self.package_folder, "bin"))
         copy(self, f"_CuraEngine.*", src=self.build_folder, dst=path.join(self.package_folder, "lib"))
