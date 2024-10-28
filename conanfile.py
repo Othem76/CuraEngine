@@ -35,13 +35,13 @@ class CuraEngineConan(ConanFile):
         "with_cura_resources": [True, False],
     }
     default_options = {
-        "enable_arcus": True,
+        "enable_arcus": False,
         "enable_benchmarks": False,
         "enable_extensive_warnings": False,
         "enable_plugins": True,
         "enable_sentry": False,
         "enable_remote_plugins": False,
-        "with_cura_resources": False,
+        "with_cura_resources": True,
     }
 
     def set_version(self):
@@ -230,7 +230,7 @@ class CuraEngineConan(ConanFile):
         else:
             ext = ""
         
-        copy(self, f"CuraEngine{ext}", src=self.build_folder, dst=path.join(self.package_folder, "bin"))
+        copy(self, f"CuraEngine.js", src=self.build_folder, dst=path.join(self.package_folder, "bin"))
         copy(self, f"*.d.ts", src=self.build_folder, dst=path.join(self.package_folder, "bin"))
         copy(self, f"_CuraEngine.*", src=self.build_folder, dst=path.join(self.package_folder, "lib"))
         copy(self, "LICENSE*", src=self.source_folder, dst=path.join(self.package_folder, "license"))
