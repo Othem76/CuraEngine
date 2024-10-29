@@ -112,10 +112,6 @@ class CuraEngineConan(ConanFile):
                 self.requires(req)
         if self.options.get_safe("enable_sentry", False):
             self.requires("sentry-native/0.6.5")
-        if self.options.enable_plugins:
-            self.requires("neargye-semver/0.3.0")
-            self.requires("asio-grpc/2.6.0")
-            self.requires("grpc/1.50.1")
             for req in self.conan_data["requirements_plugins"]:
                 self.requires(req)
         if self.options.with_cura_resources:

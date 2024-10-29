@@ -28,15 +28,6 @@ if (${ENABLE_ARCUS} OR ${ENABLE_PLUGINS})
     find_package(protobuf REQUIRED)
 endif ()
 
-MESSAGE(STATUS "Building with plugins support: ${ENABLE_PLUGINS}")
-if (${ENABLE_PLUGINS})
-    find_package(asio-grpc REQUIRED)
-    find_package(gRPC REQUIRED)
-    find_package(curaengine_grpc_definitions REQUIRED)
-    find_package(semver REQUIRED)
-    MESSAGE(STATUS "Plugin secure remotes allowed: ${ENABLE_REMOTE_PLUGINS}")
-endif ()
-
 message(STATUS "Building with Arcus: ${ENABLE_ARCUS}")
 if (${ENABLE_ARCUS})
     find_package(arcus REQUIRED)
@@ -319,23 +310,6 @@ if (ENABLE_TESTING OR ENABLE_BENCHMARKS)
                 ArcusCommunicationTest
                 ArcusCommunicationPrivateTest)
         list(APPEND TESTS_HELPERS_SRC tests/arcus/MockSocket.cpp)
-    endif ()
-
-    add_library(test_helpers ${TESTS_HELPERS_SRC})
-    target_compile_definitions(test_helpers PUBLIC $<$<BOOL:${BUILD_TESTING}>:BUILD_TESTS> $<$<BOOL:${ENABLE_ARCUS}>:ARCUS>)
-    target_include_directories(test_helpers PUBLIC "include" ${CMAKE_BINARY_DIR}/generated)
-    target_link_libraries(test_helpers PRIVATE
-            _CuraEngine
-            GTest::gtest
-            GTest::gmock
-            clipper::clipper
-            mapbox-wagyu::mapbox-wagyu
-            $<$<TARGET_EXISTS:curaengine_grpc_definitions::curaengine_grpc_definitions>:curaengine_grpc_definitions::curaengine_grpc_definitions>
-            $<$<TARGET_EXISTS:asio-grpc::asio-grpc>:asio-grpc::asio-grpc>
-            $<$<TARGET_EXISTS:grpc::grpc>:grpc::grpc>
-            $<$<TARGET_EXISTS:protobuf::libprotobuf>:protobuf::libprotobuf>)
-    if (ENABLE_ARCUS)
-        target_link_libraries(test_helpers PUBLIC arcus::arcus)
     endif ()
 endif ()
 
