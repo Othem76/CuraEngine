@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  my-print-db:
+    image: postgres:latest
+    container_name: my-print-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: azerty123
+      POSTGRES_DB: myPrint
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  api:
+    container_name: my-print-api
+    build: ./
+    ports:
+      - '3333:3333'
+    depends_on:
+      - my-print-db
+
+  front:
+    container_name: my-print-front
+    build: ../my-print
+    ports:
+      - '8080:8080'
+
+
+volumes:
+  postgres:
