@@ -38,7 +38,7 @@ class CuraEngineConan(ConanFile):
         "enable_arcus": False,
         "enable_benchmarks": False,
         "enable_extensive_warnings": False,
-        "enable_plugins": True,
+        "enable_plugins": False,
         "enable_sentry": False,
         "enable_remote_plugins": False,
         "with_cura_resources": True,

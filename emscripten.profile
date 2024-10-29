@@ -2,10 +2,12 @@ include(default)
 [settings]
 os=Emscripten
 arch=wasm
-compiler=clang
-compiler.version=6.0
-compiler.libcxx=libc++
+compiler=gcc
+compiler.version=13
+compiler.libcxx=libstdc++11
+compiler.cppstd=20
 [options]
 [tool_requires]
-emsdk_installer/1.38.29@bincrafters/stable
 [env]
+CC=/usr/bin/gcc-13
+CXX=/usr/bin/g++-13
